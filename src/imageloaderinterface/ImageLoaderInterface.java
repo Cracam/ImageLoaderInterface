@@ -12,9 +12,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
+
 
 public class ImageLoaderInterface extends VBox {
 
@@ -25,8 +28,11 @@ public class ImageLoaderInterface extends VBox {
 
          private BufferedImage image_out;
 
+                private final BooleanProperty changed = new SimpleBooleanProperty(false);
+         
          public ImageLoaderInterface() {
                   try {
+                          
                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ImageLoaderInterface.fxml"));
                            if (fxmlLoader == null) {
                                     throw new ResourcesFileErrorException();
@@ -45,7 +51,7 @@ public class ImageLoaderInterface extends VBox {
                   } catch (IOException | ResourcesFileErrorException | IllegalArgumentException ex) {
                            Logger.getLogger(ImageLoaderInterface.class.getName()).log(Level.SEVERE, null, ex);
                   }
-         }
+         }                         
 
          @FXML
          private void loaderClicked() {
@@ -59,6 +65,7 @@ public class ImageLoaderInterface extends VBox {
                            preview.setImage(image);
                            image_out = SwingFXUtils.fromFXImage(image, null);
                   }
+                    changed.set(true);
          }
 
          @FXML
@@ -76,6 +83,14 @@ public class ImageLoaderInterface extends VBox {
          public BufferedImage getImage_out() {
                   return image_out;
          }
+
+        public BooleanProperty  isChanged() {
+                return changed;
+        }
+
+        public void setChanged(boolean value) {
+                        this.changed.set(value);
+        }
          
          
          
