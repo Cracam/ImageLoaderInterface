@@ -61,9 +61,7 @@ public class ImageLoaderInterface extends VBox {
                             new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
                   File selectedFile = fileChooser.showOpenDialog(ImageLoaderButton.getScene().getWindow());
                   if (selectedFile != null) {
-                           Image image = new Image("file:" + selectedFile.getAbsolutePath());
-                           preview.setImage(image);
-                           image_out = SwingFXUtils.fromFXImage(image, null);
+                          loadImage(selectedFile);
                   }
                     changed.set(true);
          }
@@ -92,6 +90,14 @@ public class ImageLoaderInterface extends VBox {
                         this.changed.set(value);
         }
          
-         
+        /**
+         * This load an image from a file
+         * @param imageFile 
+         */
+        public void loadImage(File imageFile){
+                 Image image = new Image("file:" + imageFile.getAbsolutePath());
+                           preview.setImage(image);
+                           image_out = SwingFXUtils.fromFXImage(image, null);
+        }         
          
 }
