@@ -3,7 +3,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -17,13 +19,29 @@
             <Insets bottom="8.0" left="15.0" right="15.0" top="5.0" />
          </VBox.margin>
       </Label>
-      <Button fx:id="ImageLoaderButton" mnemonicParsing="false" onAction="#loaderClicked" onDragDropped="#dragDropped" onDragEntered="#drageEntered" onDragExited="#dragExited" prefHeight="208.0" prefWidth="216.0">
-         <graphic>
-            <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-         </graphic>
-         <VBox.margin>
-            <Insets bottom="15.0" left="25.0" />
-         </VBox.margin>
-      </Button>
+      <HBox alignment="BOTTOM_CENTER">
+         <children>
+            <Button fx:id="ImageLoaderButton" mnemonicParsing="false" onAction="#loaderClicked" prefHeight="208.0" prefWidth="216.0">
+               <graphic>
+                  <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </Button>
+            <Button fx:id="downloadButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" onAction="#downloadImage">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="15.0" />
+               </HBox.margin>
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@downloadIcon_.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
    </children>
+   <padding>
+      <Insets bottom="10.0" top="10.0" />
+   </padding>
 </fx:root>
