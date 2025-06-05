@@ -29,6 +29,9 @@ public class ImageLoaderInterface extends VBox {
         @FXML
         private Button downloadButton;
 
+        @FXML
+        private Button binButton;
+
         private ImageView preview;
 
         private BufferedImage image_out;
@@ -50,8 +53,8 @@ public class ImageLoaderInterface extends VBox {
                         preview.setFitHeight(200);
                         preview.setFitWidth(200);
 
-                        downloadButton.setDisable(true);
-
+                        disableButtons();
+                        
                         // Configure drag and drop management
                         this.setOnDragOver(this::dragOver);
                         this.setOnDragEntered(this::dragEntered);
@@ -72,41 +75,54 @@ public class ImageLoaderInterface extends VBox {
                 File selectedFile = fileChooser.showOpenDialog(ImageLoaderButton.getScene().getWindow());
                 if (selectedFile != null) {
                         loadImage(selectedFile);
-                        downloadButton.setDisable(false); // Activer le bouton de téléchargement
+                        enableButtons();
                 }
         }
 
-      private void dragOver(DragEvent event) {
-        if (event.getDragboard().hasFiles()) {
-            event.acceptTransferModes(TransferMode.COPY);
-        }
-        event.consume();
-    }
+        /**
+         * This function delete the current image and actualise everything
+         */
+        @FXML
+        private void deleteImage() {
+                preview.setImage(null);
 
-    private void dragEntered(DragEvent event) {
-        if (event.getDragboard().hasFiles()) {
-            this.setStyle("-fx-border-color: blue; -fx-border-width: 2px;");
-        }
-        event.consume();
-    }
+                image_out = null;
 
-    private void dragExited(DragEvent event) {
-        this.setStyle("-fx-border-color: transparent;");
-        event.consume();
-    }
-
-    private void dragDropped(DragEvent event) {
-        Dragboard db = event.getDragboard();
-        boolean success = false;
-        if (db.hasFiles()) {
-            success = true;
-            File file = db.getFiles().get(0);
-            loadImage(file);
-            downloadButton.setDisable(false); // Activer le bouton de téléchargement
+                disableButtons();
+                this.setChanged(true);
         }
-        event.setDropCompleted(success);
-        event.consume();
-    }
+
+        private void dragOver(DragEvent event) {
+                if (event.getDragboard().hasFiles()) {
+                        event.acceptTransferModes(TransferMode.COPY);
+                }
+                event.consume();
+        }
+
+        private void dragEntered(DragEvent event) {
+                if (event.getDragboard().hasFiles()) {
+                        this.setStyle("-fx-border-color: blue; -fx-border-width: 2px;");
+                }
+                event.consume();
+        }
+
+        private void dragExited(DragEvent event) {
+                this.setStyle("-fx-border-color: transparent;");
+                event.consume();
+        }
+
+        private void dragDropped(DragEvent event) {
+                Dragboard db = event.getDragboard();
+                boolean success = false;
+                if (db.hasFiles()) {
+                        success = true;
+                        File file = db.getFiles().get(0);
+                        loadImage(file);
+                      enableButtons();
+                }
+                event.setDropCompleted(success);
+                event.consume();
+        }
 
         @FXML
         private void downloadImage() {
@@ -153,11 +169,22 @@ public class ImageLoaderInterface extends VBox {
                         Image image = SwingFXUtils.toFXImage(bufferedImage, null);
                         preview.setImage(image);
                         image_out = bufferedImage;
-                        downloadButton.setDisable(false); // Activer le bouton de téléchargement
-                         changed.set(true);
+                        enableButtons();
+                        changed.set(true);
                 } else {
                         System.err.println("Error: BufferedImage is null");
-                        downloadButton.setDisable(true); // Désactiver le bouton de téléchargement
+                       disableButtons();
                 }
+        }
+        
+        
+        private void disableButtons(){
+                 downloadButton.setDisable(true);
+                  binButton.setDisable(true);
+        }
+        
+        private void enableButtons(){
+                 downloadButton.setDisable(false);
+                  binButton.setDisable(false);
         }
 }

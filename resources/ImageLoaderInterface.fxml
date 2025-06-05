@@ -26,18 +26,34 @@
                   <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </Button>
-            <Button fx:id="downloadButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" onAction="#downloadImage">
+            <VBox alignment="BOTTOM_CENTER">
+               <children>
+                  <Button fx:id="binButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" onAction="#deleteImage">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@bin.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="downloadButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" onAction="#downloadImage">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@downloadIcon_.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
                <HBox.margin>
-                  <Insets bottom="10.0" left="15.0" />
+                  <Insets left="15.0" />
                </HBox.margin>
-               <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@downloadIcon_.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
+            </VBox>
          </children>
       </HBox>
    </children>
